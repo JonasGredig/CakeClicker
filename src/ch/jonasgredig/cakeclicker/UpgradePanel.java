@@ -46,12 +46,13 @@ public class UpgradePanel extends JPanel {
                 JLabel level = new JLabel();
                 JLabel upgradeCost = new JLabel();
                 JPanel singleUpgradePanel = new JPanel();
+                singleUpgradePanel.setBorder(BorderFactory.createTitledBorder(upgrade.getName()));
                 singleUpgradePanel.setLayout(new BorderLayout());
 
                 jButton.setIcon(new ImageIcon(upgrade.getImage().getScaledInstance(25, 25, 0)));
-                jButton.setText(upgrade.getName());
+                jButton.setText("Upgrade");
                 level.setText("Level: " + upgrade.getAmount());
-                upgradeCost.setText(" Upgrade cost: " + upgrade.getNextUpgradeCost());
+                upgradeCost.setText(" Upgrade cost: " + beautyfyNumber(upgrade.getNextUpgradeCost()));
                 singleUpgradePanel.add(jButton, BorderLayout.NORTH);
                 singleUpgradePanel.add(level, BorderLayout.WEST);
                 singleUpgradePanel.add(new JLabel(), BorderLayout.CENTER);
@@ -87,6 +88,19 @@ public class UpgradePanel extends JPanel {
                 lastUpgradeShown = false;
             }
 
+        }
+
+    }
+
+    public String beautyfyNumber(Long number) {
+        if (number < 1000) {
+            return number.toString();
+        } else if (number < 1000000) {
+            return number/1000L + "k";
+        } else if (number < 1000000000) {
+            return number/1000L + "m";
+        } else {
+            return number/1000000L + "b";
         }
 
     }
